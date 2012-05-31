@@ -1,0 +1,10 @@
+#
+# 启用 URL 重写,所有请示都由站点 index.php 进行处理
+# 判断请求的文件是否已经存在,只有当请求的文件不存在时才进行 URL 重写
+#
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>

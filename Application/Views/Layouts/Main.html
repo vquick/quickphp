@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>QuickPHP 默认示例</title>
+<style>
+#header{text-align:center;background-color:#99CCFF}
+#contents{text-align:left;margin:10px;line-height:36px;}
+#footer{text-align:center;background-color:#99CCFF}
+</style>
+</head>
+<body>
+<div id="header">公共头部</div>
+
+<div id="contents">
+欢迎您进入 QuickPHP 的极速简单世界！<br/>
+为什么叫极速简单请登录官方了解更多：<a target="_blank" href="http://www.vquickphp.com/">http://www.vquickphp.com</a> => <strong>[框架特点]</strong><br/>
+任何问题欢迎加入ＱＱ群：2995220　进行咨询；群中有腾讯，迅雷，阿里巴巴等多家知名公司的phper为您解答。<br/>
+如果您是首次使用 QuickPHP 看到这个效果觉得很新鲜的话，那接下来我将告诉您每一部分是那里产生的，这样您就可以快速入门了：<br/>
+1：这个页面是采用布局(Layout)的方式开发的，页面布局在：Application/Views/Layouts/Main.html <br/>
+2：为什么会自动使用布局等初始化过程在：Application/Bootstrap.php中，聪明的您一定还可以在这里做更多的事情。<br/>
+3：下面黄色框框中的内容是开发时的调试信息，您可以在：Application/Configs/Appconfig.php 中修改 "debug"=>false 即可关闭该信息块<br/>
+4：该页面所执行的是默认的index控制器中的index动作，对应在：Application/Controllers/IndexController.php=>indexAction()<br/>
+5：下面红色字体的模块视图是在：Application/Views/Scripts/Index/Index.html<br/>
+6：如果要执行　IndexController.php=>otherAction() 可占击：<a href="<?php echo QP_Sys::url('index','other')?>"><?php echo QP_Sys::url('index','other')?></a>　注意一定要先配置 Application/Configs/Database.php　<br/>
+
+<?php echo $this->LayoutContent?>
+
+<br/> 亲爱的phper,您看明白了吗？是不是感觉QuickPHP是使用还是蛮简单的了！如果您对框架的一些简本概念还不了解的话，建议您先网上了解一下后再回头来看QuickPHP，相信您对它会有新的认识！有什么不明白的也可以给我留言。<br/>
+作者：V哥
+</div>
+
+<div id="footer">公共尾部</div>
+</body>
+</html>

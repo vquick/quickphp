@@ -1,0 +1,79 @@
+﻿-----------------------------------------------------------------------
+                          QuickPHP安装说明
+-----------------------------------------------------------------------
+
+系统要求：PHP >= 5.1.2 + Apache/Nginx/IIS + Mysql(如果要使用)
+
+初学者建议安装：Appserv,Xampp这样的套件包，它可以自动安装好以上所需的必备软件。
+
+[安装步骤]：
+
+1：安装服务器套件.
+2：找到站点的根目录,假定在：D:\AppServ\www
+3：把下载的QuickPHP框架程序解压到：D:\AppServ\www\quickphp
+4：如果是Linux系统则要让 Application/Data 可写,如: chmod 0777 -R quickphp/Application/Data
+5：访问：http://localhost/quickphp/Public
+
+恭喜您，以过几上几步你应该可以看到QuickPHP运行成功的介面了，如果没有请注意文件的大小写问题(Linux系统下)
+默认下通过：http://localhost/quickphp/Public/?c=<控制器>&a=<动作> 访问。如果你需要像其它框架一样使用
+URL重写功能的话，请看下的虚假主机的配置。
+
+
+[Apache虚拟主机配置]
+
+1：打开 httpd.conf 去掉 
+"#Include conf/extra/httpd-vhosts.conf"
+"LoadModule rewrite_module modules/mod_rewrite.so" 
+前面的 "#" 后保存.
+
+2：打开 httpd-vhosts.conf 文件加入以下虚假主机配置：
+
+<VirtualHost *:80>
+    ServerName test.quickphp.com
+    DocumentRoot "D:\AppServ\www\quickphp\Public"
+    RewriteEngine On
+	<Directory "D:\AppServ\www\quickphp\Public">
+	    Options Indexes FollowSymLinks MultiViews ExecCGI
+	    AllowOverride All
+	    Order allow,deny
+	    Allow from all
+	</Directory>
+</VirtualHost>
+
+(以上配置只是参考，自行根据需要适合调整,出于性能考虑，可以把 .htaccess 中的重写规则移动虚假主机配置中，然后把 .htaccess 删除)
+
+3：在 c:\windows\system32\drivers\etc\hosts (linux系统在 /etc/hosts 中) 中加入 "127.0.0.1	test.quickphp.com"
+4：打开 Application\Configs\Appconfig.php 将 'url_method'=>'standard' 改为 'url_method'=>'rewrite'
+5：将 Application/Public/htaccess.txt 改名为 .htaccess (Windows系统下要用DOS命令:ren htaccess.txt .htaccess)
+6：访问: http://test.quickphp.com/index/index 应该成功了。
+
+[Nginx虚拟主机配置]
+
+server {
+        listen 80;
+        server_name test.quickphp.com;
+        root /data/vhosts/quickphp/Public;
+        index index.php index.html;
+        rewrite ^/favicon.ico /favicon.ico break;
+        rewrite ^(.*)$ /index.php$1 last;
+        location ~ ^.+\.php {
+            fastcgi_pass   backend;
+            fastcgi_index  index.php;
+            fastcgi_connect_timeout 300;
+            fastcgi_send_timeout 300;
+            fastcgi_read_timeout 300;
+            fastcgi_split_path_info ^(.+\.php)(.*)$;
+            fastcgi_param  SCRIPT_FILENAME  /data/vhosts/quickphp/Public$fastcgi_script_name;
+            fastcgi_param  PATH_INFO  $fastcgi_path_info;
+            fastcgi_param  PATH_TRANSLATED $document_root$fastcgi_path_info;
+            include        fastcgi_params;
+        }
+}
+
+(以上配置只是参考，自行根据需要适合调整)
+
+
+[框架自定义路由配置]
+
+1：打开 Application/Bootstrap.php 将 QP_Router 的配置块的注释去掉。
+2：访问 http://test.quickphp.com/user/1

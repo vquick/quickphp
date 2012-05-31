@@ -1,0 +1,37 @@
+-----------------------------------------------------------------------
+                          QuickPHP默认目录及文件说明
+-----------------------------------------------------------------------
+┍───Application               :应用程序主目录
+│　　　┝Configs                 :配置文件目录，所有的配置文件都放这里
+│　　　│┝Appconfig.php         :应用程序基本配置文件
+│　　　│┕Database.php          :数据库配置文件
+│　　　┝Controllers             :控制器文件目录
+│　　　│┝IndexController.php   :默认的执行的控制器
+│　　　│┕ErrorController.php   :错误异常处理控制器
+│　　　┝Data                    :数据文件目录
+│　　　│┝Cache                 :缓存目录
+│　　　│┝Logs                  :日志目录
+│　　　││┝App                 :异常日志目录
+│　　　││┝Db                  :数据库错误日志目录
+│　　　││┝Php                 :PHP错误日志目录
+│　　　││┕User                :用户日志目录
+│　　　│┕Temp                  :临时文件目录
+│　　　┝Library                 :自定义类库目录
+│　　　┝Models                  :模型目录
+│　　　┝Views                   :视图目录
+│　　　│┝Helpers               :视图助手目录
+│　　　│┝Layouts               :布局文件目录
+│　　　││┕Main.html           :默认布局文件
+│　　　│┕Scripts               :视图文件目录
+│　　　│ ┝Error                :ErrorController对应的视图目录
+│　　　│ │┕Error.html         :ErrorController=>errorAction对应的视图
+│　　　│ ┕Index                :IndexController对应的视图目录
+│　　　│   ┕Index.html         :IndexController=>IndexAction对应的视图
+│　　　┕Bootstrap.php           :执行应用程序(控制器)前的处理过程
+│
+┝───Public                    :网站的根目录 
+│　　　┝index.php               :应用程序的统一入口文件
+│　　　┕.htaccess               :框架的URL重写配置,适合Apache,如果不使用重写功能则可以不需要
+│
+┕───QuickPHP                  :框架系统目录
+
