@@ -77,3 +77,9 @@ server {
 
 1：打开 Application/Bootstrap.php 将 QP_Router 的配置块的注释去掉。
 2：访问 http://test.quickphp.com/user/1
+
+
+
+
+官方: http://www.vquickphp.com
+
