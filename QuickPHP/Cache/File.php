@@ -117,7 +117,8 @@ class QP_Cache_File extends QP_Cache_Abstract
 	 * @param  int $type 文件类型 0:数据文件 1:状态文件
 	 * @return string 绝对路径文件名
 	 */
-	private function _file($key,$type=0){
+	private function _file($key,$type=0)
+	{
 		$ext = $type==0 ? '.data' : '.stat';
 		return $this->_options['cache_path'].$this->_key($key).$ext;
 	}
@@ -128,7 +129,8 @@ class QP_Cache_File extends QP_Cache_Abstract
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	private function _saveDataFile($key,$value){
+	private function _saveDataFile($key,$value)
+	{
 		$data = serialize($value);
 		$file = $this->_file($key,0);
 		file_put_contents($file,$data);
@@ -140,7 +142,8 @@ class QP_Cache_File extends QP_Cache_Abstract
 	 * @param string $key
 	 * @return mixed
 	 */
-	private function _readDataFile($key){
+	private function _readDataFile($key)
+	{
 		$value = @file_get_contents($this->_file($key,0));		
 		if($value){
 			$value = unserialize($value);
@@ -157,7 +160,8 @@ class QP_Cache_File extends QP_Cache_Abstract
 	 * @param string $key
 	 * @param int $expire
 	 */
-	private function _saveStatFile($key,$expire){
+	private function _saveStatFile($key,$expire)
+	{
 		$file = $this->_file($key,1);
 		$stat = array('create'=>time(),'life'=>$expire);
 		$data = '<?php return '.var_export($stat, true).' ?>';

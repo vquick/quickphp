@@ -38,7 +38,8 @@ class QP_Page_Page
 	 *
 	 * @var array
 	 */
-	private $_options = array(
+	private $_options = array
+	(
 		// 总记录数
 		'sumcount'=>100,
 		// 每页显示多少行记录
@@ -80,7 +81,8 @@ class QP_Page_Page
 	 *
 	 * @param array $options 属性设置
 	 */
-	public function set($options){
+	public function set($options)
+	{
 		$this->_options = array_merge($this->_options, $options);
 		return $this;
 	}
@@ -90,7 +92,8 @@ class QP_Page_Page
 	 *
 	 * @return array
 	 */
-	public function result(){
+	public function result()
+	{
 		// 当前第几页
 		$curpage = $this->_getCurPage();
 
@@ -145,12 +148,14 @@ class QP_Page_Page
 		);
 	}
 
+	/* ------------------------ 以下私有方法 ---------------------- */
 	/**
 	 * 得到当前所是第几页
 	 *
 	 * @return int
 	 */
-	private function _getCurPage(){
+	private function _getCurPage()
+	{
 		if($this->_urlMethod == 'standard' || false !== strpos($this->_options['url'], '?')){
 			$pagenum = $this->_request->getGet($this->_options['tagname']);
 		}else{
@@ -164,7 +169,8 @@ class QP_Page_Page
 	 *
 	 * @return void
 	 */
-	private function _parseUrl(){
+	private function _parseUrl()
+	{
 		// 得到 URL
 		$url = $this->_options['url'] ? $this->_options['url'] : $this->_request->currentURL();
 		// 分页的参数名

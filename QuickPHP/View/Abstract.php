@@ -27,7 +27,7 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @var string
 	*/
 	protected $_file = null;
-
+	
 	/**
 	 * 模板变量
 	 *
@@ -55,7 +55,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	 * @param string $viewBasePath 视图文件的根目录,为空时默认为:"Application/Views/Scripts" 表示相对路径
 	 * @return void
 	 */
-	public function __construct($viewBasePath = null){
+	public function __construct($viewBasePath = null)
+	{
 		if($viewBasePath){
 			$this->_basePath = $viewBasePath;
 		}else{
@@ -87,7 +88,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param boolean $force 目录属性 true:[$path为绝对路径] false:[$path为相对路径(相对于： Application/Views/Script/Views/Script )]
 	* @return void
 	*/
-	public function setPath($path, $force=false){
+	public function setPath($path, $force=false)
+	{
 		// 相对路径时自动以 '/' 开始
 		if(! $force){
 			if(substr($path,0,1) != '/'){
@@ -119,7 +121,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param mixed $val 数据
 	* @return void
 	*/
-	public function __set($key, $val){
+	public function __set($key, $val)
+	{
 		$this->_vars[$key] = $val;
 	}
 
@@ -131,7 +134,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param mixed $val 数据
 	* @return void
 	*/
-	public function __get($key){
+	public function __get($key)
+	{
 		return isset($this->_vars[$key]) ? $this->_vars[$key] : null;
 	}
 
@@ -142,7 +146,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param string $key
 	* @return boolean
 	*/
-	public function __isset($key){
+	public function __isset($key)
+	{
 		return isset($this->_vars[$key]);
 	}
 
@@ -153,7 +158,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param string $key
 	* @return void
 	*/
-	public function __unset($key){
+	public function __unset($key)
+	{
 		if(isset($this->_vars[$key])){
 			unset($this->_vars[$key]);
 		}
@@ -168,7 +174,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param mixed $value 数据
 	* @return void
 	*/
-	public function assign($key, $value = null){
+	public function assign($key, $value = null)
+	{
 		if(is_array($key)){
 			$this->_vars = array_merge($this->_vars, $key);
 		}else{
@@ -185,9 +192,7 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param string $name 视图文件名
 	* @return string
 	*/
-	public function render($name){
-
-	}
+	public function render($name){}
 
 	/**
 	* 视图助手,助手都定义在 Application/Views/Helpers
@@ -195,7 +200,8 @@ Abstract class QP_View_Abstract implements QP_View_Interface
 	* @param string $name 助手名，默认情况下为当前控制器所对应的
 	* @return object
 	*/
-	public function helper($name=''){
+	public function helper($name='')
+	{
 		// 默认为当前控制器所对应的助手
 		if($name == ''){
 			// 根据不同的URL模式得到当前的控制器

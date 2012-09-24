@@ -71,7 +71,8 @@ class QP_Http_Http
 	*/
 	static public function sendStatus($code)
 	{
-		static $_status = array(
+		static $_status = array
+		(
 			// Informational 1xx
 			100 => 'Continue',
 			101 => 'Switching Protocols',

@@ -19,7 +19,8 @@ abstract class QP_Cache_Abstract implements QP_Cache_Interface
 	 *
 	 * @var array
 	 */
-	protected $_options = array(
+	protected $_options = array
+	(
 		// 缓存文件存放目录,如果是文件类型时则会自动设置该属性，开发者也可以自行设置
 		'cache_path'=>'',
 		
@@ -56,7 +57,8 @@ abstract class QP_Cache_Abstract implements QP_Cache_Interface
 	 *
 	 * @param array $options
 	 */
-	public function __construct($options=array()){
+	public function __construct($options=array())
+	{
 		if(isset($options['memcache'])){
 			$options['memcache'] = array_merge($this->_options['memcache'], $options['memcache']);
 		}

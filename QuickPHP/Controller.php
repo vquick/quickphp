@@ -47,7 +47,8 @@ abstract class QP_Controller
 	 * @param string $var
 	 * @return mixed
 	 */
-	public function __get($var){
+	public function __get($var)
+	{
 		if($var == 'view'){
 			if(null === $this->_view){
 				$this->_view = QP_View::getInstance();
@@ -73,7 +74,8 @@ abstract class QP_Controller
 	 *
 	 * @param boolean $bool
 	 */
-	public function setViewAutoRender($bool){
+	public function setViewAutoRender($bool)
+	{
 		$this->_viewAutoRender = $bool;
 	}
 
@@ -81,7 +83,8 @@ abstract class QP_Controller
 	 * 判断是否自动解析视图,这个方法一般是框架会调用
 	 *
 	 */
-	public function viewIsAutoRender(){
+	public function viewIsAutoRender()
+	{
 		return $this->_viewAutoRender;
 	}
 
@@ -89,15 +92,15 @@ abstract class QP_Controller
 	 * 自动运行,可以在自定义控制器中重载
 	 *
 	 */
-	public function init(){
-	}
+	public function init(){}
 
 	/**
 	 * URL 直接跳转
 	 *
 	 * @param string $url URL地址
 	 */
-	public function location($url){
+	public function location($url)
+	{
 		header("Location: $url");
 		exit(0);
 	}
@@ -111,7 +114,8 @@ abstract class QP_Controller
 	 * @param string $action 动作
 	 * @param array|string $params
 	 */
-	public function gotoUri($controller, $action=self::DEFAULT_ACTION, $params=null){
+	public function gotoUri($controller, $action=self::DEFAULT_ACTION, $params=null)
+	{
 		$url = QP_Sys::url($controller,$action,$params);
 		$this->location($url);
 	}
@@ -125,7 +129,8 @@ abstract class QP_Controller
 	 * @param string $url :将要跳转的URL  "":自动返回到上一页  "close":则关闭窗口
 	 * @param $time $time :页面显示停留的时间,单位:秒,过了时间后自动跳转
 	 */
-	public function msgbox($msg,$url='',$time=10){
+	public function msgbox($msg,$url='',$time=10)
+	{
 		QP_Sys::msgbox($msg,$url,$time);
 	}
 }

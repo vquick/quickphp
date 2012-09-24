@@ -7,8 +7,8 @@
  * @copyright http://www.vquickphp.com
  * @version $Id: Base.php 1236 2011-10-23 08:52:02Z yuanwei $
  */
-abstract class QP_Db_Base{
-	
+abstract class QP_Db_Base
+{
 	/**
 	 * 解析字段名,防止字段名是关键字
 	 */

@@ -24,7 +24,8 @@ class QP_Application
 	 *
 	 * @param string $appConfigFile APP的配置文件
 	 */
-	public function __construct($appConfigFile){
+	public function __construct($appConfigFile)
+	{
 		// 载入APP配置
 		QP_Registry_Registry::getInstance()->set('APP_CFG',include($appConfigFile));
 	}
@@ -33,7 +34,8 @@ class QP_Application
 	 * 开始初始化框架并且运行APP
 	 *
 	 */
-	public function run(){
+	public function run()
+	{
 		// 加入自动搜索路径
 		set_include_path(implode(PATH_SEPARATOR, array(
 		    realpath(APPLICATION_PATH . '/Library'),
@@ -52,7 +54,8 @@ class QP_Application
 	 * 系统初始化
 	 *
 	 */
-	private function _initSys(){
+	private function _initSys()
+	{
 		// 错误最高级别
 		error_reporting(E_ALL);
 		// 自定义PHP错处处理
@@ -69,7 +72,8 @@ class QP_Application
 	 * 应用程序初始化
 	 *
 	 */
-	private function _initApp(){
+	private function _initApp()
+	{
 		// 得到APP配置
 		$appCfg = QP_Sys::getAppCfg();
 		// 设置时区
@@ -80,7 +84,8 @@ class QP_Application
 	 * 执行调配器
 	 *
 	 */
-	private function _dispatch(){
+	private function _dispatch()
+	{
 		$dispatcher = new QP_Dispatcher();
 		$dispatcher->run();
 	}

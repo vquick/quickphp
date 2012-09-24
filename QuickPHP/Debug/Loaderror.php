@@ -20,7 +20,16 @@
 
       <!-- 文件找不到的提示 -->
       <?php if(isset($fileError)):?>
-      找不到类: <span style="color:red;"><b><?php echo $class ?></b></span>
+      找不到类: <span style="color:red;"><b>
+      <?php 
+		/* 如果是控制器则让输出更友好容易看出错误 */
+		if(strtolower(substr($class,-10)) == 'controller'){
+			$class = strtolower($class);
+			$class = ucfirst(str_replace('controller','Controller',$class));
+		}
+		echo $class;
+      ?>
+      </b></span>
       所对应的文件: <span style="color:green;">
       <?php
 		// 根据类得到对应的文件名
@@ -33,7 +42,7 @@
 		echo $classFile.'.php';
       ?>
       </span> <br/><br/>
-      [提示]：请检查以下目录中是否有该文件的定义:
+      [提示]：请检查以下目录中是否有该文件的定义(如果是Linux/Unix系统请注意文件名的大小写):
       <hr/>
       <?php QP_Sys::dump(explode(PATH_SEPARATOR,get_include_path())); ?>
       <hr/>

@@ -40,7 +40,8 @@
  * 等同：where id>5 or id<10
  *
  **/
-class QP_Mongo_Mongo{
+class QP_Mongo_Mongo
+{
 
 	/**
 	 * Mongodb 对象句柄
@@ -68,19 +69,19 @@ class QP_Mongo_Mongo{
 	 *
 	 * @var array
 	 */
-	private $_condMap = array(
-	'<'=>'lt', // id > 1
-	'<='=>'lte', // id <= 10
-	'>'=>'gt', // id > 5
-	'>='=>'gte', // id >= 4
-	'!='=>'ne', // id != 4
-	'%'=>'mod', // id % 4 = 0
-	'in'=>'in', // id in (1,2,3,4)
-	'notin'=>'nin',// id not in (1,2,3,4)
-	'or'=>'or', // id=1 or id=2
-	'not'=>'not', // !(id=1)
+	private $_condMap = array
+	(
+		'<'=>'lt', // id > 1
+		'<='=>'lte', // id <= 10
+		'>'=>'gt', // id > 5
+		'>='=>'gte', // id >= 4
+		'!='=>'ne', // id != 4
+		'%'=>'mod', // id % 4 = 0
+		'in'=>'in', // id in (1,2,3,4)
+		'notin'=>'nin',// id not in (1,2,3,4)
+		'or'=>'or', // id=1 or id=2
+		'not'=>'not', // !(id=1)
 	);
-
 
 	/**
 	 * 构造函数
@@ -92,7 +93,8 @@ class QP_Mongo_Mongo{
 	 * 'cmd'=>'$', // 修改器命令前缀
 	 * )
 	 */
-	public function __construct($config=array('host'=>'localhost','port'=>27017,'cmd'=>'$')){
+	public function __construct($config=array('host'=>'localhost','port'=>27017,'cmd'=>'$'))
+	{
 		$server = sprintf("mongodb://%s:%s", $config['host'], $config['port']);
 		$this->_mongo = new Mongo($server, array('connect'=>true));// 立即连接
 		// 命令前缀
@@ -119,7 +121,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return boolean
 	 */
-	public function insert($colName, $sets, $safe=false, $fsync=false){
+	public function insert($colName, $sets, $safe=false, $fsync=false)
+	{
 		$col = $this->_getCol($colName);
 		try {
 			$col->insert($sets,array('safe'=>$safe,'fsync'=>$fsync));
@@ -142,7 +145,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return boolean
 	 */
-	public function save($colName, $sets, $safe=false, $fsync=false){
+	public function save($colName, $sets, $safe=false, $fsync=false)
+	{
 		// 处理 '_id' 字段
 		$sets = $this->_parseId($sets);
 		$ret = $this->_getCol($colName)->save($sets,array('safe'=>$safe,'fsync'=>$fsync));
@@ -163,7 +167,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return boolean
 	 */
-	public function delete($colName,$query=array(),$delAll=true,$safe=false,$fsync=false){
+	public function delete($colName,$query=array(),$delAll=true,$safe=false,$fsync=false)
+	{
 		// 自动处理 '_id' 字段
 		$query = $this->_parseId($query);
 		// 删除选项
@@ -186,7 +191,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return array
 	 */
-	public function dropCol($colName){
+	public function dropCol($colName)
+	{
 		return $this->_getCol($colName)->drop();
 	}
 
@@ -294,7 +300,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return array
 	 */
-	public function select($colName,$query=array(),$fields=array(),$sort=array(),$limit=0,$skip=0){
+	public function select($colName,$query=array(),$fields=array(),$sort=array(),$limit=0,$skip=0)
+	{
 		// 得到集合
 		$col = $this->_getCol($colName);
 		// 自动处理 '_id' 字段
@@ -329,7 +336,8 @@ class QP_Mongo_Mongo{
 	 * @param int $skip 跳过多少条
 	 * @return unknown
 	 */
-	public function count($colName,$query=array(),$limit=0,$skip=0){
+	public function count($colName,$query=array(),$limit=0,$skip=0)
+	{
 		return $this->_getCol($colName)->count($query,$limit,$skip);
 	}
 
@@ -342,7 +350,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return array
 	 */
-	public function fetchRow($colName,$query=array(), $fields=array()){
+	public function fetchRow($colName,$query=array(), $fields=array())
+	{
 		// 得到集合名
 		$col = $this->_getCol($colName);
 		// 自动处理 '_id' 字段
@@ -360,7 +369,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return mixed
 	 */
-	public function fetchOne($colName,$query=array(), $fields='_id'){
+	public function fetchOne($colName,$query=array(), $fields='_id')
+	{
 		$ret = $this->fetchRow($colName,$query,array($fields));
 		return isset($ret[$fields]) ? $ret[$fields] : false;
 	}
@@ -374,7 +384,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return array
 	 */
-	public function fetchCol($colName,$query=array(), $fields='_id'){
+	public function fetchCol($colName,$query=array(), $fields='_id')
+	{
 		$result = array();
 		$list = $this->select($colName,$query,array($fields));
 		foreach ($list as $row){
@@ -392,7 +403,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return array
 	 */
-	public function fetchAssoc($colName,$query=array(), $fields='_id'){
+	public function fetchAssoc($colName,$query=array(), $fields='_id')
+	{
 		$result = array();
 		$list = $this->select($colName,$query);
 		foreach ($list as $row){
@@ -411,7 +423,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return string
 	 */
-	public function cmd($option=''){
+	public function cmd($option='')
+	{
 		// 只返回命令前缀
 		if($option == ''){
 			return $this->_cmd;
@@ -428,7 +441,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @param string $dbname 数据库名
 	 */
-	public function selectDB($dbname){
+	public function selectDB($dbname)
+	{
 		$this->_db = $this->_mongo->selectDB($dbname);
 	}
 
@@ -438,7 +452,8 @@ class QP_Mongo_Mongo{
 	 * @param boolean $onlyName 是否只返回数据库名的数组
 	 * @return array
 	 */
-	public function allDB($onlyName=false){
+	public function allDB($onlyName=false)
+	{
 		$ary = $this->_mongo->listDBs();
 		if($onlyName){
 			$ret = array();
@@ -456,7 +471,8 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return array
 	 */
-	public function dropDB($dbname){
+	public function dropDB($dbname)
+	{
 		return $this->_mongo->dropDB($dbname);
 	}
 
@@ -464,7 +480,8 @@ class QP_Mongo_Mongo{
 	 * 关闭连接
 	 *
 	 */
-	public function close(){
+	public function close()
+	{
 		$this->_mongo->close();
 	}
 
@@ -472,7 +489,8 @@ class QP_Mongo_Mongo{
 	 * 得到 Mongo 原生对象，进行其它更高级的操作，详细请看PHP手册
 	 *
 	 */
-	public function getMongo(){
+	public function getMongo()
+	{
 		return $this->_mongo;
 	}
 
@@ -481,14 +499,16 @@ class QP_Mongo_Mongo{
 	 *
 	 * @return array
 	 */
-	public function getError(){
+	public function getError()
+	{
 		return $this->_db->lastError();
 	}
 
 	/* ======================= 以下为私有方法 ====================== */
 
 	// 解析数据组中的'_id'字段(如果有的话)
-	private function _parseId($arr){
+	private function _parseId($arr)
+	{
 		if(isset($arr['_id'])){
 			$arr['_id'] = new MongoId($arr['_id']);
 		}
@@ -496,12 +516,14 @@ class QP_Mongo_Mongo{
 	}
 
 	// 得到集合对象
-	private function _getCol($colName){
+	private function _getCol($colName)
+	{
 		return $this->_db->selectCollection($colName);
 	}
 
 	// 解析数组中的"_id"并且返回
-	private function _parseArr($arr){
+	private function _parseArr($arr)
+	{
 		$ret = (array)$arr['_id'];
 		//$arr['_idobj'] = $arr['_id'];
 		$arr['_id'] = $ret['$id'];

@@ -26,7 +26,8 @@ class QP_Cache_Memcache extends QP_Cache_Abstract
 	 *
 	 * @var array
 	 */
-	private $_server = array(
+	private $_server = array
+	(
 		// 主机
 		'host'=>'127.0.0.1',
 		// 端口
@@ -68,7 +69,8 @@ class QP_Cache_Memcache extends QP_Cache_Abstract
 	 *
 	 * @param array $server 
 	 */
-	public function addServer(array $server){
+	public function addServer(array $server)
+	{
 		$this->_memcache->addServer(
 			$server['host'], 
 			$server['port'], 
@@ -86,7 +88,8 @@ class QP_Cache_Memcache extends QP_Cache_Abstract
 	 *
 	 * @return unknown
 	 */
-	public function getMemcache(){
+	public function getMemcache()
+	{
 		return $this->_memcache;
 	}
 	
@@ -178,7 +181,8 @@ class QP_Cache_Memcache extends QP_Cache_Abstract
 	 * @param string $key
 	 * @return string
 	 */
-	protected function _key($key){
+	protected function _key($key)
+	{
 		return $key;
 	}
 }

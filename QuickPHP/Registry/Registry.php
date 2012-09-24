@@ -26,7 +26,8 @@ class QP_Registry_Registry
 	 * 框架函数，但不能被实例化
 	 *
 	 */
-	private function __construct(){
+	private function __construct()
+	{
 		if(null === self::$_data){
 			self::$_data = new ArrayObject();
 		}
@@ -42,7 +43,8 @@ class QP_Registry_Registry
 	 * 得到对象单例
 	 *
 	 */
-	static public function getInstance(){
+	static public function getInstance()
+	{
 		if(null === self::$_instance){
 			self::$_instance = new self();
 		}
@@ -83,7 +85,8 @@ class QP_Registry_Registry
 	 *
 	 * @param string $key
 	 */
-	public function keyExists($key){
+	public function keyExists($key)
+	{
 		return self::$_data->offsetExists($key);
 	}
 
@@ -92,7 +95,8 @@ class QP_Registry_Registry
 	 *
 	 * @param string $key
 	 */
-	public function remove($key){
+	public function remove($key)
+	{
 		if($this->keyExists($key)){
 			self::$_data->offsetUnset($key);
 			return true;

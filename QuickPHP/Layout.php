@@ -6,7 +6,8 @@
  * @copyright http://www.vquickphp.com
  * @version $Id: Layout.php 1236 2011-10-23 08:52:02Z yuanwei $
  */
-class QP_Layout{
+class QP_Layout
+{
 
 	/**
 	 * 默认布局名
@@ -50,7 +51,8 @@ class QP_Layout{
 	 *
 	 * @param string $layoutName 布局文件名
 	 */
-	static public function start($layoutName = self::DEFAULT_NAME){
+	static public function start($layoutName = self::DEFAULT_NAME)
+	{
 		self::$_name = $layoutName;
 		self::$_enabled = true;
 	}
@@ -62,7 +64,8 @@ class QP_Layout{
 	 * @param mixed $value 数据
 	 * @return void
 	 */
-	static public function set($key, $value = null){
+	static public function set($key, $value = null)
+	{
 		if(is_array($key)){
 			self::$_vars = array_merge(self::$_vars, $key);
 		}else{
@@ -76,7 +79,8 @@ class QP_Layout{
 	 * @param string $key
 	 * @return mixed
 	 */
-	static public function get($key=''){
+	static public function get($key='')
+	{
 		return $key=='' ? self::$_vars : (isset(self::$_vars[$key]) ? self::$_vars[$key] : '');
 	}	
 
@@ -84,7 +88,8 @@ class QP_Layout{
 	 * 禁用布局
 	 *
 	 */
-	static public function stop(){
+	static public function stop()
+	{
 		self::$_enabled = false;
 	}
 
@@ -93,7 +98,8 @@ class QP_Layout{
 	 *
 	 * @return boolean
 	 */
-	static public function isEnabled(){
+	static public function isEnabled()
+	{
 		return self::$_enabled;
 	}
 
@@ -103,7 +109,8 @@ class QP_Layout{
 	 * @param $name 如果设置值则 Layout 登录这个值，否则返回当前的 Layout 名称
 	 * @return string
 	 */
-	static public function name($name=''){
+	static public function name($name='')
+	{
 		if($name){
 			self::$_name = $name;
 		}

@@ -63,7 +63,8 @@ abstract class QP_Db_Abstract extends QP_Db_Base implements QP_Db_Interface
 	 * @param string $sql 执行的SQL语句
 	 * @param float $execTime 执行的时间
 	 */
-	protected function _setDebugInfo($sql, $execTime){
+	protected function _setDebugInfo($sql, $execTime)
+	{
 		// 总时间累加
 		$this->_totalTime += $execTime;
 		// 是否设置了调试选项
@@ -91,7 +92,8 @@ abstract class QP_Db_Abstract extends QP_Db_Base implements QP_Db_Interface
 	 * 设置数据库连接字符集
 	 *
 	 */
-	protected function _setCharset(){
+	protected function _setCharset()
+	{
 		$this->query('SET NAMES '.$this->_config['charset']);
 	}
 	
@@ -102,7 +104,8 @@ abstract class QP_Db_Abstract extends QP_Db_Base implements QP_Db_Interface
 	 * @param boolean $isDebug 是否打开调用信息
 	 * @param boolean $showError 是否显示错误信息
 	 */
-	public function __construct($config=array(), $isDebug=false, $showError=false){
+	public function __construct($config=array(), $isDebug=false, $showError=false)
+	{
 		$this->_config = $config;
 		$this->_debug = $isDebug;
 		$this->_showError = $showError;
@@ -553,7 +556,8 @@ abstract class QP_Db_Abstract extends QP_Db_Base implements QP_Db_Interface
 	 * @param $fetchType fetch类型
 	 * @param $table 表名，可以为空
 	 */
-	private function _queryObj($fetchType,$table=''){
+	private function _queryObj($fetchType,$table='')
+	{
 		require_once QUICKPHP_PATH . '/Db/Query.php';
 		return new QP_Db_Query($this,$fetchType,$table);
 	}
@@ -563,7 +567,8 @@ abstract class QP_Db_Abstract extends QP_Db_Base implements QP_Db_Interface
 	 *
 	 * @param string $errorMsg 
 	 */
-	protected function _DBError($errorMsg){
+	protected function _DBError($errorMsg)
+	{
 		// 如果显示错误则直接抛出异常
 		if($this->_showError){
 			throw new QP_Exception($errorMsg, QP_Exception::EXCEPTION_DB_ERROR);

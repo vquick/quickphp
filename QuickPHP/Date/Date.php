@@ -8,21 +8,22 @@
  */
 
 /**
-[示例]
-// 返回当前的日期如 "2008-10-12"
-echo QP_Date_QP_Date_Date::getDate();
-// 比较两个时间
-echo QP_Date_Date::compareTiem('2006-10-12','2006-10-11');
-// 日期加天数： "2005-9-25"+6 = "2005-10-01"
-echo QP_Date_Date::dateAddDay("2005-10-20",6);
-// 日期减天数： "2005-10-20"-10 = "2005-10-10"
-echo QP_Date_Date::dateDecDay("2005-10-20",10);
-// 日期减日期: "2005-10-20"-"2005-10-10"=10
-echo QP_Date_Date::dateDiff('2005-10-20','2005-10-10');
-// 时间相减
-echo QP_Date_Date::timeDiff('2005-10-20 10:00:00','2005-10-20  08:00:00');
+	[示例]
+	// 返回当前的日期如 "2008-10-12"
+	echo QP_Date_QP_Date_Date::getDate();
+	// 比较两个时间
+	echo QP_Date_Date::compareTiem('2006-10-12','2006-10-11');
+	// 日期加天数： "2005-9-25"+6 = "2005-10-01"
+	echo QP_Date_Date::dateAddDay("2005-10-20",6);
+	// 日期减天数： "2005-10-20"-10 = "2005-10-10"
+	echo QP_Date_Date::dateDecDay("2005-10-20",10);
+	// 日期减日期: "2005-10-20"-"2005-10-10"=10
+	echo QP_Date_Date::dateDiff('2005-10-20','2005-10-10');
+	// 时间相减
+	echo QP_Date_Date::timeDiff('2005-10-20 10:00:00','2005-10-20  08:00:00');
 */
-class QP_Date_Date{
+class QP_Date_Date
+{
 
 	/**
 	 * 防止类实例化或被复制

@@ -45,7 +45,8 @@ class QP_View extends QP_View_Abstract
 	 *
 	 * @param string $ext : 如 '.html'
 	 */
-	static public function setDefaultExt($ext='.html'){
+	static public function setDefaultExt($ext='.html')
+	{
 		self::$_defaultExt = $ext;
 	}
 	
@@ -54,7 +55,8 @@ class QP_View extends QP_View_Abstract
 	 *
 	 * @return string
 	 */
-	static public function getDefaultExt(){
+	static public function getDefaultExt()
+	{
 		return self::$_defaultExt;
 	}
 	
@@ -64,7 +66,8 @@ class QP_View extends QP_View_Abstract
 	 * @param string|array $key 键名或数据
 	 * @param mixed $value 数据
 	 */
-	static public function setGlobal($key,$value=null){
+	static public function setGlobal($key,$value=null)
+	{
 		if(is_array($key)){
 			self::$_globalVars = array_merge(self::$_globalVars,$key);
 		}else{
@@ -77,7 +80,8 @@ class QP_View extends QP_View_Abstract
 	 *
 	 * @return array
 	 */
-	static public function getGlobal(){
+	static public function getGlobal()
+	{
 		return self::$_globalVars;
 	}
 	
@@ -93,6 +97,17 @@ class QP_View extends QP_View_Abstract
 			self::$_instance = new self();
 		}
 		return self::$_instance;
+	}
+	
+	/**
+	 * 视图工厂
+	 *
+	 * @param string $viewBasePath 视图文件的根目录,为空时默认为:"Application/Views/Script/"
+	 * @return view object
+	 */	
+	static public function factory($viewBasePath = null)
+	{
+		return new self($viewBasePath);
 	}
 	
 	/**
@@ -112,7 +127,8 @@ class QP_View extends QP_View_Abstract
 	 * @param string $name 视图文件名
 	 * @return string 
 	 */
-	public function render($name){
+	public function render($name)
+	{
 		$file = $this->getPath().$name;
 		// 检测视图文件是否存在
 		if(!file_exists($file)){
@@ -122,10 +138,17 @@ class QP_View extends QP_View_Abstract
 		if(self::$_globalVars){
 			$this->assign(self::$_globalVars);
 		}
+		// 如果开启了调试，则把所有输出到视图的数据保存起来用在 Debuginfo 中输出，方便开发者调试
+		$appCfg = QP_Sys::getAppCfg();
+		if($appCfg['debug']){
+			$registry = QP_Registry_Registry::getInstance();
+			$viewData = $registry->get('VIEW_DEBUG');
+			$viewData[$name] = $this->_vars;
+			$registry->set('VIEW_DEBUG', $viewData);
+		}
 		// 执行文件得到内容
 		ob_start();
 		include $file;
 		return ob_get_clean();
 	}
-	
 }

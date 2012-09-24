@@ -12,8 +12,8 @@
  */
 require QUICKPHP_PATH . '/Db/Abstract.php';
 
-class QP_Db_Mysql extends QP_Db_Abstract {
-
+class QP_Db_Mysql extends QP_Db_Abstract 
+{
 	/**
 	 * 结果集的模式
 	 *
@@ -66,7 +66,8 @@ class QP_Db_Mysql extends QP_Db_Abstract {
 	 * @param unknown_type $sql
 	 * @param unknown_type $bind
 	 */
-	public function query($sql){
+	public function query($sql)
+	{
 		$this->_query = @mysql_query($sql,$this->_link);
 		if(! $this->_query){
 			$this->_DBError('SQL查询出错: ['.$sql.'] '.$this->errorMsg());
@@ -101,7 +102,8 @@ class QP_Db_Mysql extends QP_Db_Abstract {
 	 * @param array $bind
 	 * @return array
 	 */
-	public function fetchAssoc($sql,$bind=array()){
+	public function fetchAssoc($sql,$bind=array())
+	{
 		$result = array();
 		$this->execute($sql,$bind);
 		while ($row = @mysql_fetch_array($this->_query, self::FETCH_MODE)){
@@ -118,7 +120,8 @@ class QP_Db_Mysql extends QP_Db_Abstract {
 	 * @param array $bind
 	 * @return array
 	 */
-	public function fetchRow($sql,$bind=array()){
+	public function fetchRow($sql,$bind=array())
+	{
 		$this->execute($sql,$bind);
 		return @mysql_fetch_array($this->_query, self::FETCH_MODE);
 	}	
@@ -131,7 +134,8 @@ class QP_Db_Mysql extends QP_Db_Abstract {
 	 * @param array $bind
 	 * @return array
 	 */
-	public function fetchCol($sql,$bind=array()){
+	public function fetchCol($sql,$bind=array())
+	{
 		$result = array();
 		$this->execute($sql,$bind);
 		while ($row = @mysql_fetch_array($this->_query, self::FETCH_MODE)){
@@ -148,7 +152,8 @@ class QP_Db_Mysql extends QP_Db_Abstract {
 	 * @param array $bind
 	 * @return mixed 
 	 */
-	public function fetchOne($sql,$bind=array()){
+	public function fetchOne($sql,$bind=array())
+	{
 		$this->execute($sql,$bind);
 		$row = @mysql_fetch_array($this->_query, self::FETCH_MODE);
 		if($row){

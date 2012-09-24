@@ -54,7 +54,8 @@ class QP_Curl_Curl
 	private $_method;
 	
 	// CURL SETOPT 信息,这些是预定义的，用户也可以自定义
-	private $_setopt = array(
+	private $_setopt = array
+	(
 		// 执行操作后的回调处理，一般用于写日志
 		'callback'=>null,
 		// 访问的端口,http默认是 80
@@ -105,35 +106,6 @@ class QP_Curl_Curl
 		$this->_init();
 	}
 	
-	/**
-	 * 初始化 CURL
-	 *
-	 */
-	private function _init(){
-		// 初始化
-		$this->_curl = curl_init();
-		
-		/**
-		 * 不可修改的设置
-		 */
-		// 启用时会将服务器服务器返回的“Location:”放在header中递归的返回给服务器
-		curl_setopt($this->_curl, CURLOPT_FOLLOWLOCATION, true);
-		
-		// 设置http头,支持lighttpd服务器的访问
-		$header[]= 'Expect:';
-		curl_setopt($this->_curl, CURLOPT_HTTPHEADER, $header);
-		
-		// 是否将头文件的信息作为数据流输出(HEADER信息),这里保留报文
-		curl_setopt($this->_curl, CURLOPT_HEADER, true);
-		
-		// 获取的信息以文件流的形式返回，而不是直接输出。
-		curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, true) ;
-		curl_setopt($this->_curl, CURLOPT_BINARYTRANSFER, true) ;
-		
-		// 使用默认设置
-		$this->set();
-	}
-
 	/**
 	 * 以友好方式设置 CURL 属性
 	 *
@@ -207,7 +179,8 @@ class QP_Curl_Curl
 	 * 	CURLOPT_HEADER => false,
 	 * )
 	 */
-	public function setopt(array $options){
+	public function setopt(array $options)
+	{
 		curl_setopt_array($this->_curl, $options);
 		return $this;
 	}
@@ -284,6 +257,38 @@ class QP_Curl_Curl
 	{
 		// 关闭CURL
 		curl_close($this->_curl);
+	}
+	
+	/* --------------------- 以下私有方法 ------------------*/
+
+	/**
+	 * 初始化 CURL
+	 *
+	 */
+	private function _init()
+	{
+		// 初始化
+		$this->_curl = curl_init();
+		
+		/**
+		 * 不可修改的设置
+		 */
+		// 启用时会将服务器服务器返回的“Location:”放在header中递归的返回给服务器
+		curl_setopt($this->_curl, CURLOPT_FOLLOWLOCATION, true);
+		
+		// 设置http头,支持lighttpd服务器的访问
+		$header[]= 'Expect:';
+		curl_setopt($this->_curl, CURLOPT_HTTPHEADER, $header);
+		
+		// 是否将头文件的信息作为数据流输出(HEADER信息),这里保留报文
+		curl_setopt($this->_curl, CURLOPT_HEADER, true);
+		
+		// 获取的信息以文件流的形式返回，而不是直接输出。
+		curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, true) ;
+		curl_setopt($this->_curl, CURLOPT_BINARYTRANSFER, true) ;
+		
+		// 使用默认设置
+		$this->set();
 	}	
 	
 	/**

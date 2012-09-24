@@ -91,7 +91,8 @@ class QP_Smarty_Smarty extends QP_View_Abstract
 	 * @param string $name 视图名
 	 * @return string
 	 */
-	public function render($name){
+	public function render($name)
+	{
 		// 设置模块目录
 		$this->_smarty->template_dir = $this->getPath();
 		$file = $this->_smarty->template_dir.$name;

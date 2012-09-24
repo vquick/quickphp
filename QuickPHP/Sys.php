@@ -12,7 +12,7 @@ class QP_Sys
 	 * QuickPHP 版本号
 	 *
 	 */
-	const VERSION = '2.5.2';
+	const VERSION = '2.5.5';
 
 
 	/**
@@ -26,7 +26,8 @@ class QP_Sys
 	 * 得到 APP 的配置
 	 *
 	 */
-	static public function getAppCfg(){
+	static public function getAppCfg()
+	{
 		return QP_Registry_Registry::getInstance()->get('APP_CFG');
 	}
 
@@ -36,7 +37,8 @@ class QP_Sys
 	 * @param string $message 日志内容
 	 * @param string $type 日志类型 'user':用户自定义日志 'app':框架的异常错误 'php':PHP的运行错误
 	 */
-	static public function log($message,$type='user'){
+	static public function log($message,$type='user')
+	{
 		$type = ucfirst(strtolower($type));
 		// 得到日志目录
 		$path = APPLICATION_PATH."/Data/Logs/{$type}/".date('Y-m');
@@ -56,7 +58,8 @@ class QP_Sys
 	 * @param object $sysClass 类简名
 	 * @param mixed $params 构造参数
 	 */
-	static public function load($sysClass,$params=null){
+	static public function load($sysClass,$params=null)
+	{
 		$sysClass = ucfirst(strtolower($sysClass));
 		$includeFile = QUICKPHP_PATH.'/'.$sysClass.'/'.$sysClass.'.php';
 		if(!file_exists($includeFile)){
@@ -76,7 +79,8 @@ class QP_Sys
 	 * @param string $cfgItem 配置项,如: "application"或"application.id"
 	 * @return unknown
 	 */
-	static public function config($cfgItem){
+	static public function config($cfgItem)
+	{
 		return self::load('config')->get($cfgItem);
 	}
 
@@ -87,7 +91,8 @@ class QP_Sys
 	 * @param string $url :将要跳转的URL  "":自动返回到上一页  "close":则关闭窗口
 	 * @param $time $time :页面显示停留的时间,单位:秒,过了时间后自动跳转
 	 */
-	static public function msgbox($msg,$url='',$time=10){
+	static public function msgbox($msg,$url='',$time=10)
+	{
 		include QUICKPHP_PATH.'/Debug/Msgbox.php';
 		exit(0);
 	}
@@ -114,7 +119,7 @@ class QP_Sys
 	{
 		$request = QP_Request::getInstance();
 		// 根据不同的URL模式生成URL
-		$appCfg = QP_Sys::getAppCfg();
+		$appCfg = self::getAppCfg();
 		switch ($appCfg['url_method'])
 		{
 			// 常规模式
@@ -182,7 +187,8 @@ class QP_Sys
 	 *
 	 * @param string $zfPath :绝对路径的 ZF 框架路径,如 "/data/ZendFramework/library" 注意目录名不要包含 "Zend"目录
 	 */
-	static public function zend($zfPath){
+	static public function zend($zfPath)
+	{
 		set_include_path(implode(PATH_SEPARATOR, array(
 		    $zfPath,
 		    get_include_path(),
@@ -198,7 +204,8 @@ class QP_Sys
 	 *	array('Common','load') :回调是静态类方法,如: Common::load()
 	 *	array($obj,'load') :回调是对应的方法,如: $obj->load()
 	 */
-	static public function loadRegister($callback){
+	static public function loadRegister($callback)
+	{
 		spl_autoload_register($callback);
 	}
 
@@ -245,7 +252,8 @@ class QP_Sys
 	 *
 	 * @param string $class
 	 */
-	static public function _autoload($class){
+	static public function _autoload($class)
+	{
 		// 查询框架中定义的类库或在搜索路径下查询
 		$includeFile = self::_findClass($class);
 		// 在找不到的情况下并且有定义第三方的装载器的话则把继续执行第三方的装载器
@@ -258,7 +266,7 @@ class QP_Sys
 		 *
 		 * 这里这么做只是为了提示更友好而以，如果关闭的调试则不管了
 		 */
-		$appCfg = QP_Sys::getAppCfg();
+		$appCfg = self::getAppCfg();
 		if($appCfg['debug'] && !file_exists($includeFile)){
 			// (发现这里面抛异常不会被处理,所以只能模似了)
 			$fileError = true;
@@ -283,7 +291,8 @@ class QP_Sys
 	 * @param string $class
 	 * @return string
 	 */
-	static private function _findClass($class){
+	static private function _findClass($class)
+	{
 		$class = strtolower($class);
 		// 兼容控制器的继承(解决Linux下文件名大小写的问题)
 		if(substr($class,-10) == 'controller'){
@@ -343,9 +352,10 @@ class QP_Sys
 	 *
 	 * @param object $exception
 	 */
-	static public function _exception($exception){
+	static public function _exception($exception)
+	{
 		// APP的配置
-		$appCfg = QP_Sys::getAppCfg();
+		$appCfg = self::getAppCfg();
 		// 得到异常代码
 		$code = $exception->getCode();
 		// 永远抛出的异常
@@ -376,7 +386,7 @@ class QP_Sys
 	static public function _error($errno , $errstr, $errfile, $errline, $errcontext)
 	{
 		// APP的配置
-		$appCfg = QP_Sys::getAppCfg();
+		$appCfg = self::getAppCfg();
 		// 允许的错误类型将不进行日志记录
 		$allowError = $appCfg['allow_error'];
 		if(in_array($errno,$allowError)){
@@ -414,7 +424,7 @@ class QP_Sys
 		// 根据框架的配置将 $_SERVER['argv'] 变量的值转成 REQUEST 的 GET 或 PARAM 值
 		$request = QP_Request::getInstance();
 		// APP的配置
-		$appCfg = QP_Sys::getAppCfg();
+		$appCfg = self::getAppCfg();
 		$argv = $request->server('argv');
 		// 主程序文件名
 		$prgName = $argv[0];

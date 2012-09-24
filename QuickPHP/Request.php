@@ -227,12 +227,12 @@ class QP_Request
 	 */
 	public function currentUrl()
 	{
-		$http = isset($_SERVER["HTTPS"])&&$_SERVER["HTTPS"] ? 'https' : 'http';
+		$http = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]!="off") ? 'https' : 'http';
 		$http .= '://';
-		return $http.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		$prot = $_SERVER["SERVER_PORT"]!='80' ? ':'.$_SERVER["SERVER_PORT"] : '';
+		return $http.$_SERVER["SERVER_NAME"].$prot.$_SERVER["REQUEST_URI"];
 	}
-
-
+	
 	/**
 	* 取得当前请求使用的协议
 	*
@@ -387,7 +387,8 @@ class QP_Request
 	 * 得到访问都的IP
 	 *
 	 */
-	public function getClientIp(){
+	public function getClientIp()
+	{
 		if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
 			$ip = getenv("HTTP_CLIENT_IP");
 		else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))

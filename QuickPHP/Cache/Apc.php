@@ -17,7 +17,8 @@ class QP_Cache_Apc extends QP_Cache_Abstract
 	/**
 	 * 构造函数
 	 */
-	public function __construct(){
+	public function __construct()
+	{
 		// 是否安装了扩展
 		if(! extension_loaded('apc')){
 			throw new QP_Exception('Apc 扩展没有安装.');

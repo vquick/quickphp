@@ -236,7 +236,8 @@ class QP_Dispatcher
 	 * @param string $key 键
 	 * @param string $value 内容
 	 */
-	private function _setDebugInfo($key,$value){
+	private function _setDebugInfo($key,$value)
+	{
 		if($this->_appConfig['debug']){
 			$this->_debugInfo[$key] = $value;
 		}

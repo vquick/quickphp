@@ -8,7 +8,6 @@
  */
 class QP_Cookie_Cookie
 {
-
 	/**
 	 * 防止类实例化或被复制
 	 *

@@ -30,7 +30,8 @@
  * var_dump($ret);
  *
  */
-class QP_Redis_Redis{
+class QP_Redis_Redis
+{
 
 	// 是否使用 M/S 的读写集群方案
 	private $_isUseCluster = false;
@@ -39,7 +40,8 @@ class QP_Redis_Redis{
 	private $_sn = 0;
 
 	// 服务器连接句柄
-	private $_linkHandle = array(
+	private $_linkHandle = array
+	(
 		'master'=>null,// 只支持一台 Master
 		'slave'=>array(),// 可以有多台 Slave
 	);
@@ -49,7 +51,8 @@ class QP_Redis_Redis{
 	 *
 	 * @param boolean $isUseCluster 是否采用 M/S 方案
 	 */
-	public function __construct($isUseCluster=false){
+	public function __construct($isUseCluster=false)
+	{
 		$this->_isUseCluster = $isUseCluster;
 	}
 
@@ -60,7 +63,8 @@ class QP_Redis_Redis{
 	 * @param boolean $isMaster 当前添加的服务器是否为 Master 服务器
 	 * @return boolean
 	 */
-	public function connect($config=array('host'=>'127.0.0.1','port'=>6379), $isMaster=true){
+	public function connect($config=array('host'=>'127.0.0.1','port'=>6379), $isMaster=true)
+	{
 		// default port
 		if(!isset($config['port'])){
 			$config['port'] = 6379;
@@ -84,7 +88,8 @@ class QP_Redis_Redis{
 	 * @param int $flag 关闭选择 0:关闭 Master 1:关闭 Slave 2:关闭所有
 	 * @return boolean
 	 */
-	public function close($flag=2){
+	public function close($flag=2)
+	{
 		switch($flag){
 			// 关闭 Master
 			case 0:
@@ -114,7 +119,8 @@ class QP_Redis_Redis{
 	 * @param boolean $slaveOne 返回的Slave选择 true:负载均衡随机返回一个Slave选择 false:返回所有的Slave选择
 	 * @return redis object
 	 */
-	public function getRedis($isMaster=true,$slaveOne=true){
+	public function getRedis($isMaster=true,$slaveOne=true)
+	{
 		// 只返回 Master
 		if($isMaster){
 			return $this->_linkHandle['master'];
@@ -130,7 +136,8 @@ class QP_Redis_Redis{
 	 * @param string $value 缓存值
 	 * @param int $expire 过期时间， 0:表示无过期时间
 	 */
-	public function set($key, $value, $expire=0){
+	public function set($key, $value, $expire=0)
+	{
 		// 永不超时
 		if($expire == 0){
 			$ret = $this->getRedis()->set($key, $value);
@@ -146,7 +153,8 @@ class QP_Redis_Redis{
 	 * @param string $key 缓存KEY,支持一次取多个 $key = array('key1','key2')
 	 * @return string || boolean  失败返回 false, 成功返回字符串
 	 */
-	public function get($key){
+	public function get($key)
+	{
 		// 是否一次取多个值
 		$func = is_array($key) ? 'mGet' : 'get';
 		// 没有使用M/S
@@ -164,7 +172,8 @@ class QP_Redis_Redis{
 	 * @param string $value 缓存值
 	 * @return boolean
 	 */
-	public function setnx($key, $value){
+	public function setnx($key, $value)
+	{
 		return $this->getRedis()->setnx($key, $value);
 	}
 
@@ -174,7 +183,8 @@ class QP_Redis_Redis{
 	 * @param string || array $key 缓存KEY，支持单个健:"key1" 或多个健:array('key1','key2')
 	 * @return int 删除的健的数量
 	 */
-	public function remove($key){
+	public function remove($key)
+	{
 		// $key => "key1" || array('key1','key2')
 		return $this->getRedis()->delete($key);
 	}
@@ -186,7 +196,8 @@ class QP_Redis_Redis{
 	 * @param int $default 操作时的默认值
 	 * @return int　操作后的值
 	 */
-	public function incr($key,$default=1){
+	public function incr($key,$default=1)
+	{
 		if($default == 1){
 			return $this->getRedis()->incr($key);
 		}else{
@@ -201,7 +212,8 @@ class QP_Redis_Redis{
 	 * @param int $default 操作时的默认值
 	 * @return int　操作后的值
 	 */
-	public function decr($key,$default=1){
+	public function decr($key,$default=1)
+	{
 		if($default == 1){
 			return $this->getRedis()->decr($key);
 		}else{
@@ -214,7 +226,8 @@ class QP_Redis_Redis{
 	 *
 	 * @return boolean
 	 */
-	public function clear(){
+	public function clear()
+	{
 		return $this->getRedis()->flushDB();
 	}
 
@@ -225,7 +238,8 @@ class QP_Redis_Redis{
 	 *
 	 * @return redis object
 	 */
-	private function _getSlaveRedis(){
+	private function _getSlaveRedis()
+	{
 		// 就一台 Slave 机直接返回
 		if($this->_sn <= 1){
 			return $this->_linkHandle['slave'][0];

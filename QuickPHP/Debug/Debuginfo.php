@@ -140,6 +140,30 @@ if($frontURL):?>
     <td colspan="2"><?php qp_sys::dump($_SERVER)?></td>
   </tr>
 
+  <tr class="tr_click" onclick="qp_debug_swap_show('qp_tr_viewvar')">
+    <td colspan="2">[视图变量]</td>
+  </tr>
+  <tr style="display:none" id="qp_tr_viewvar">
+    <td colspan="2">
+    <?php
+    // 处理数据为友好显示
+    function debug_dataShow($val){
+	if(is_array($val)){
+		return array_map('debug_dataShow',$val);
+	}elseif(is_object($val)){
+		return get_class($val).' Object';
+	}elseif (is_resource($val)){
+		return get_resource_type($val);
+	}else{
+		return QP_Func_Func::toHtml($val);
+	}
+    }
+    $viewDebugInfo = QP_Registry_Registry::getInstance()->get('VIEW_DEBUG');
+    qp_sys::dump(array_map('debug_dataShow',$viewDebugInfo));
+    ?>
+    </td>
+  </tr>
+
   <tr class="tr_click" onclick="qp_debug_swap_show('qp_tr_includepath')">
     <td colspan="2">[搜索路径]</td>
   </tr>

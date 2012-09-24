@@ -54,7 +54,7 @@ class QP_Db
 			$appCfg = QP_Sys::getAppCfg();
 
 			// 生成驱动对象
-			require $driverFile;
+			require_once $driverFile;
 			$class = 'QP_Db_'.$driverType;
 			self::$_instance[$key] = new $class($dbConfig[$configItem], $appCfg['debug'], $appCfg['display_error']);
 		}

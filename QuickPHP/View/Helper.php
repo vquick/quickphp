@@ -21,7 +21,8 @@ Abstract class QP_View_Helper
 	 *
 	 * @return void
 	 */
-	public function __construct(){
+	public function __construct()
+	{
 		$this->request = QP_Request::getInstance();
 	}
 	
@@ -30,6 +31,5 @@ Abstract class QP_View_Helper
 	 *
 	 * @return void
 	 */
-	public function init(){
-	}
+	public function init(){}
 }

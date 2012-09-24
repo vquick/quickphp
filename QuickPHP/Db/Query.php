@@ -9,8 +9,8 @@
  * @version $Id: Query.php 1236 2011-10-23 08:52:02Z yuanwei $
  */
 
-class QP_Db_Query extends QP_Db_Base{
-	
+class QP_Db_Query extends QP_Db_Base
+{
 	/**
 	 * 当前的DB对象
 	 * 
@@ -40,7 +40,8 @@ class QP_Db_Query extends QP_Db_Base{
 	 * @param string $fetchType fetch函数类型
 	 * @param string $table 表名
 	 */
-	public function __construct($dbObj,$fetchType,$table=''){
+	public function __construct($dbObj,$fetchType,$table='')
+	{
 		$this->_db = $dbObj;
 		$this->_fetchType = $fetchType;
 		$this->_sqlData['table'] = $table;
@@ -79,7 +80,8 @@ class QP_Db_Query extends QP_Db_Base{
 	 * @param string $priKey 字段名 
 	 * @return $this
 	 */
-	public function primary($priKey){
+	public function primary($priKey)
+	{
 		$this->_sqlData['primary'] = $this->_parseFields($priKey);
 		return $this;
 	}

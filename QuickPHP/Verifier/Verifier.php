@@ -23,10 +23,12 @@ Account  => 用户帐号(字母开头，由字母数字下划线组成，4-20字
 ip       => IP地址
 word     => 合法字符(字母，数字，下划线)
 */
-class QP_Verifier_Verifier{
+class QP_Verifier_Verifier
+{
 	
 	//定义的正则表达式
-	static private $_regExp = array(
+	static private $_regExp = array
+	(
 		'email'       => '/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([_a-z0-9]+\.)+[a-z]{2,5}$/',
 		'numeric'     => '/^[0-9]+$/',
 		'zip'         => '/^[1-9]\d{5}$/',

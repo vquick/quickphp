@@ -68,7 +68,8 @@ class QP_Config_Config
 	 * @param unknown_type $cfgName 配置名,如: $cfgName='application' 代表着操作 application.php
 	 * @param unknown_type $cfgArr 配置值,如果没有则添加，有则覆盖。
 	 */
-	public function set($cfgName,$cfgArr){
+	public function set($cfgName,$cfgArr)
+	{
 		$key = ucfirst(strtolower($cfgName));
 		$cfgValue = $this->_loadfile($cfgName);
 		self::$_cfgFileAry[$key] = array_merge($cfgValue,$cfgArr);
@@ -78,7 +79,8 @@ class QP_Config_Config
 	 * 载入配置文件并返回值
 	 *
 	 */
-	private function _loadfile($file){
+	private function _loadfile($file)
+	{
 		$file = ucfirst(strtolower($file));
 		// 是否载入过了
 		if(! isset(self::$_cfgFileAry[$file])){

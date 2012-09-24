@@ -8,7 +8,6 @@
  */
 class QP_Cache
 {
-
 	/**
 	 * 单例模式
 	 *

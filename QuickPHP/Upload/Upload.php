@@ -1,7 +1,7 @@
 <?php
 /**
  * 文件上传 工具
- * 
+ *
  * @category QuickPHP(II)
  * @copyright http://www.vquickphp.com
  * @version $Id: Upload.php 1236 2011-10-23 08:52:02Z yuanwei $
@@ -42,22 +42,26 @@ class QP_Upload_Upload
 	 *
 	 * @var array
 	 */
-	private $_fileType = array(
+	private $_fileType = array
+	(
 		'other'=>array('application/octet-stream'),
 		'bmp'=>array('image/bmp'),
 		'gif'=>array('image/gif'),
 		'txt'=>array('text/plain'),
 		'jpg'=>array('image/jpg','image/jpe','image/jpeg','image/pjpeg'),
+		'jpeg'=>array('image/jpg','image/jpe','image/jpeg','image/pjpeg'),
 		'png'=>array('image/x-png','image/png'),
 		'swf'=>array('application/x-shockwave-flash'),
 	);
+
 
 	/**
 	 * 属性设置
 	 *
 	 * @var array
 	 */
-	private $_sets = array(
+	private $_sets = array
+	(
 		// 可上传文件的类型,如果想上传更安全的文件(防止修改文件扩展名)； 如果想上传所有文件请设置为 "*"
 		'type'=>'jpg|swf|gif|png|bmp',
 		// 允许的最大文件大小,单位:KB  0:表示任何大小
@@ -91,7 +95,8 @@ class QP_Upload_Upload
 	 *
 	 * @var array
 	 */
-	private $_options = array(
+	private $_options = array
+	(
 		// 错误序号
 		'errorNo'=>0,
 		// 错误定义
@@ -152,8 +157,8 @@ class QP_Upload_Upload
 	{
 		$this->_sets = array_merge($this->_sets,$sets);
 		return $this;
-	}	
-	
+	}
+
 	/**
 	* 上传文件动作
 	*
@@ -200,7 +205,7 @@ class QP_Upload_Upload
 		if ($this->_sets['type'] != '*')
 		{
 			// 得到所有允许的类型
-			$typeArr = array();			
+			$typeArr = array();
 			$ftypes = explode('|',$this->_sets['type']);
 			foreach ($ftypes as $ft)
 			{

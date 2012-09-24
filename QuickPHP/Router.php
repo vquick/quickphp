@@ -34,7 +34,8 @@ class QP_Router
 	 * 	'action'=>'test',
 	 * )
 	 */
-	static public function set($name, $routerData=array()){
+	static public function set($name, $routerData=array())
+	{
 		self::$_router[$name] = $routerData;
 	}
 
@@ -44,7 +45,8 @@ class QP_Router
 	 * @param string $name 名称,如果名称为空则返回所有路由配置
 	 * @return array
 	 */
-	static public function get($name=''){
+	static public function get($name='')
+	{
 		return $name=='' ? self::$_router : (isset(self::$_router[$name]) ? self::$_router[$name] : false);
 	}
 
@@ -53,7 +55,8 @@ class QP_Router
 	 *
 	 * @param str $uri
 	 */
-	static public function matches($uri){
+	static public function matches($uri)
+	{
 		// 得到所有设置的路由URI
 		$regexUri = array();
 		foreach (self::$_router as $name=>$param){
@@ -116,7 +119,8 @@ class QP_Router
 	 *
 	 * @return boolean
 	 */
-	static public function isUseRouter(){
+	static public function isUseRouter()
+	{
 		return self::$_router ? true : false;
 	}
 }
